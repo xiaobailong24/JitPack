@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016.  @xiaobailong24
+ */
+
 package me.xiaobailong24.jitpack;
 
 import android.os.Bundle;
