@@ -449,9 +449,16 @@ public class AdvancedWebView extends WebView {
         final WebSettings webSettings = getSettings();
         webSettings.setAllowFileAccess(false);
         setAllowAccessFromFileUrls(webSettings, false);
-        webSettings.setBuiltInZoomControls(false);
+        webSettings.setBuiltInZoomControls(true);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+
+        webSettings.setSupportZoom(true);
+        webSettings.setDisplayZoomControls(false);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+
+
         if (Build.VERSION.SDK_INT < 18) {
             webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         }
