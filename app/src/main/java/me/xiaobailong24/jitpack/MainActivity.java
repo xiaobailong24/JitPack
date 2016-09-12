@@ -7,26 +7,24 @@ package me.xiaobailong24.jitpack;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.SeekBar;
 
-import butterknife.BindView;
+import com.orhanobut.logger.Logger;
+
 import butterknife.ButterKnife;
-import me.xiaobailong24.library.View.CircleProgress;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    @BindView(R.id.progress)
-    CircleProgress mCircleProgress;
-    @BindView(R.id.start_btn)
-    View mStartBtn;
-    @BindView(R.id.stop_btn)
-    View mStopBtn;
-    @BindView(R.id.reset_btn)
-    View mResetBtn;
-    @BindView(R.id.out_seek)
-    SeekBar mSeekBar;
+    /*    @BindView(R.id.progress)
+        CircleProgress mCircleProgress;
+        @BindView(R.id.start_btn)
+        View mStartBtn;
+        @BindView(R.id.stop_btn)
+        View mStopBtn;
+        @BindView(R.id.reset_btn)
+        View mResetBtn;
+        @BindView(R.id.out_seek)
+        SeekBar mSeekBar;*/
 
 
     @Override
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e(TAG, "onCreate: ");
 
         ButterKnife.bind(this);
-        mCircleProgress.startAnim();    //开始动画
+        /*mCircleProgress.startAnim();    //开始动画
         mStartBtn.setOnClickListener(this);
         mStopBtn.setOnClickListener(this);
         mResetBtn.setOnClickListener(this);
@@ -59,10 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mCircleProgress.setRadius(factor);
             }
         });
-
+*/
     }
 
-    @Override
+/*    @Override
     public void onClick(View view) {
         Log.d(TAG, "onClick: " + view.toString());
         if (view == mStartBtn) {
@@ -72,7 +70,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (view == mResetBtn) {
             mCircleProgress.reset();
         }
+    }*/
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Logger.d(TAG, "onRestart: ");
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Logger.d(TAG, "onStart: ");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Logger.d(TAG, "onResume: ");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Logger.d(TAG, "onPause: ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Logger.d(TAG, "onStop: ");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Logger.d(TAG, "onDestroy: ");
+    }
+
 }
 
 

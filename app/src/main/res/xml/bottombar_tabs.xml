@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        icon="@drawable/ic_tab_ui"
+        id="@+id/tab_ui"
+        title="UI"/>
+    <tab
+        icon="@drawable/ic_tab_java"
+        id="@+id/tab_java"
+        title="Java"/>
+    <tab
+        icon="@drawable/ic_tab_settings"
+        id="@+id/tab_setting"
+        title="Setting"/>
+</tabs>
