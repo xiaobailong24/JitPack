@@ -15,7 +15,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.xiaobailong24:JitPack:v1.0.3'
+	        compile 'com.github.xiaobailong24:JitPack:v1.0.4'
 	}
 
 # [Usage](https://github.com/xiaobailong24/JitPack/wiki)
