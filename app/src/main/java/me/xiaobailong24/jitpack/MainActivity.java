@@ -5,72 +5,95 @@
 package me.xiaobailong24.jitpack;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.xiaobailong24.jitpack.fragment.BaseFragment;
+import me.xiaobailong24.jitpack.fragment.CameraFragment;
+import me.xiaobailong24.jitpack.fragment.CompassFragment;
+import me.xiaobailong24.jitpack.fragment.HelpFragment;
+import me.xiaobailong24.jitpack.fragment.SearchFragment;
+import me.xiaobailong24.library.BottomTab.Controller;
+import me.xiaobailong24.library.BottomTab.OnTabItemSelectListener;
+import me.xiaobailong24.library.BottomTab.TabLayoutMode;
+import me.xiaobailong24.library.View.BottomTab;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    /*    @BindView(R.id.progress)
-        CircleProgress mCircleProgress;
-        @BindView(R.id.start_btn)
-        View mStartBtn;
-        @BindView(R.id.stop_btn)
-        View mStopBtn;
-        @BindView(R.id.reset_btn)
-        View mResetBtn;
-        @BindView(R.id.out_seek)
-        SeekBar mSeekBar;*/
+    int[] testColors = {0xFF00796B, 0xFF5B4947, 0xFF607D8B, 0xFFF57C00, 0xFFF57C00};
 
+    @BindView(R.id.tab)
+    BottomTab mBottomTab;
+    Controller controller;
+    List<BaseFragment> mFragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e(TAG, "onCreate: ");
+        Logger.e(TAG, "onCreate: ");
 
         ButterKnife.bind(this);
-        /*mCircleProgress.startAnim();    //开始动画
-        mStartBtn.setOnClickListener(this);
-        mStopBtn.setOnClickListener(this);
-        mResetBtn.setOnClickListener(this);
-        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                Log.d(TAG, "onProgressChanged: ");
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                Log.d(TAG, "onStartTrackingTouch: ");
+        initFragment();
+        initBottomTab();
 
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                Log.d(TAG, "onStopTrackingTouch: ");
-                float factor = seekBar.getProgress() / 100f;
-                mCircleProgress.setRadius(factor);
-            }
-        });
-*/
     }
 
-/*    @Override
-    public void onClick(View view) {
-        Log.d(TAG, "onClick: " + view.toString());
-        if (view == mStartBtn) {
-            mCircleProgress.startAnim();
-        } else if (view == mStopBtn) {
-            mCircleProgress.stopAnim();
-        } else if (view == mResetBtn) {
-            mCircleProgress.reset();
+    private void initBottomTab() {
+        mBottomTab = (BottomTab) findViewById(R.id.tab);
+        controller = mBottomTab.builder()
+                .addTabItem(android.R.drawable.ic_menu_camera, "Camera", testColors[0])
+                .addTabItem(android.R.drawable.ic_menu_compass, "Compass", testColors[1])
+                .addTabItem(android.R.drawable.ic_menu_search, "Search", testColors[2])
+                .addTabItem(android.R.drawable.ic_menu_help, "Help", testColors[3])
+                .setMode(TabLayoutMode.HIDE_TEXT | TabLayoutMode.CHANGE_BACKGROUND_COLOR)
+                .build();
+        controller.addTabItemClickListener(listener);
+
+    }
+
+    private void initFragment() {
+        mFragments = new ArrayList<>();
+
+        mFragments.add(new CameraFragment());
+        mFragments.add(new CompassFragment());
+        mFragments.add(new SearchFragment());
+        mFragments.add(new HelpFragment());
+
+        FragmentTransaction transaction =
+                getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.frame_layout, mFragments.get(0));
+        transaction.commit();
+
+    }
+
+
+    OnTabItemSelectListener listener = new OnTabItemSelectListener() {
+        @Override
+        public void onSelected(int index, Object tag) {
+            Logger.d(TAG, "onSelected: " + index + "    TAG:    " + tag.toString());
+
+            FragmentTransaction transaction =
+                    getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, mFragments.get(index));
+            transaction.commit();
         }
-    }*/
+
+        @Override
+        public void onRepeatClick(int index, Object tag) {
+            Logger.d(TAG, "onRepeatClick: " + index + "    TAG:    " + tag.toString());
+
+        }
+    };
 
     @Override
     protected void onRestart() {
@@ -109,7 +132,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-
-
-
